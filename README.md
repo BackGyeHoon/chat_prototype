@@ -1,4 +1,4 @@
-# zigzag_test
+# chat_prototype
 
 > A Vue.js project
 
