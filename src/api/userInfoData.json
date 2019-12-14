@@ -1,32 +1,37 @@
-{
-  "userInfoData": [
-    {
-      "idx": 1,
-      "name": "장만월 사장님"
-    },
-    {
-      "idx": 2,
-      "name": "신정근 바텐더"
-    },
-    {
-      "idx": 3,
-      "name": "이미라 의사"
-    },
-    {
-      "idx": 4,
-      "name": "구찬성 지배인"
-    },
-    {
-      "idx": 5,
-      "name": "노준석 총지배인"
-    },
-    {
-      "idx": 6,
-      "name": "김유나 인턴"
-    },
-    {
-      "idx": 7,
-      "name": "구현모"
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "profile_image_url": "",
+    "name": "장만월 사장님"
+  },
+  {
+    "id": 2,
+    "profile_image_url": "",
+    "name": "신정근 바텐더"
+  },
+  {
+    "id": 3,
+    "profile_image_url": "",
+    "name": "이미라 의사"
+  },
+  {
+    "id": 4,
+    "profile_image_url": "",
+    "name": "구찬성 지배인"
+  },
+  {
+    "id": 5,
+    "profile_image_url": "",
+    "name": "노준석 총지배인"
+  },
+  {
+    "id": 6,
+    "profile_image_url": "",
+    "name": "김유나 인턴"
+  },
+  {
+    "id": 7,
+    "profile_image_url": "",
+    "name": "구현모"
+  }
+]
