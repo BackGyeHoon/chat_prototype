@@ -10,5 +10,8 @@ export default {
   getNormalizeMessage (state) {
     const getMessagesData = require('../api/normalizeMessage.json')
     state.messages = getMessagesData
+  },
+  setCurrentRoomId ({state}, payload) {
+    state.currentRoomId = payload
   }
 }

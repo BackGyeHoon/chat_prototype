@@ -3,5 +3,8 @@ export default {
     commit('getNormalizeUsers')
     commit('getNormalizeChats')
     commit('getNormalizeMessage')
+  },
+  getCurrentRoomId ({commit}, payload) {
+    commit('setCurrentRoomId', payload)
   }
 }
