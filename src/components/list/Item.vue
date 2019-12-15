@@ -2,7 +2,7 @@
   <ul>
     <li
       v-for="message in messages"
-      :key="message.idx"
+      :key="message.id"
       class="item"
     >
       <router-link :to="'/room/'+message.room_id">

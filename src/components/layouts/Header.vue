@@ -2,9 +2,16 @@
     <header
         :class="['header', isList ? 'list' : 'room']"
     >
+      <template v-if="details">
+        <button class="header--menu">메뉴</button>
+        <h2 class="header--title">{{ details.user.name }}</h2>
+        <button class="header--mypage">마이페이지</button>
+      </template>
+      <template v-else>
         <button class="header--menu">메뉴</button>
         <h2 class="header--title">채팅</h2>
         <button class="header--mypage">마이페이지</button>
+      </template>
     </header>
 </template>
 
@@ -15,6 +22,10 @@ export default {
     isList: {
       type: Boolean,
       default: true
+    },
+    details: {
+      type: [Array, Object],
+      required: false
     }
   }
 }

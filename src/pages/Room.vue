@@ -1,16 +1,25 @@
 <template>
   <div>
-    <h2>this room_id is {{currentRoomId}}</h2>
+    <ZHeader
+      :isList="false"
+      :details="currentRoom"/>
+    <Chat :messagesData="currentRoom"/>
   </div>
 </template>
 
 <script>
+import ZHeader from '@/components/layouts/Header'
+import Chat from '@/components/room/chat'
 import { store } from '../store/index'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'room',
   store: store,
+  components: {
+    ZHeader,
+    Chat
+  },
   computed: {
     ...mapGetters(['currentRoom']),
     currentRoomId () {

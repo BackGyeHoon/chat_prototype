@@ -6,5 +6,8 @@ export default {
   },
   getCurrentRoomId ({commit}, payload) {
     commit('setCurrentRoomId', payload)
+  },
+  sendChatData ({commit}, payload) {
+    commit('sendMessage', payload)
   }
 }

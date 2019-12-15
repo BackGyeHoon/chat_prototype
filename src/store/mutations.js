@@ -13,5 +13,8 @@ export default {
   },
   setCurrentRoomId (state, payload) {
     state.currentRoomId = parseInt(payload.payload.room_id)
+  },
+  sendMessage (state, payload) {
+    state.messages.push(payload)
   }
 }
