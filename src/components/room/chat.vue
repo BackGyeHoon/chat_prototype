@@ -69,15 +69,19 @@ export default {
   methods: {
     ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage']),
     sendChatMessage () {
-      this.$store.dispatch('sendChatData', {
-        'user_id': 0,
-        'resource_id': null,
-        'created_at': '',
-        'content': this.chatData,
-        'room_id': parseInt(this.$route.params.room_id),
-        'isYour': true
-      })
-      this.chatData = ''
+      if (this.chatData === '') {
+        alert('메세지를 입력해주세요.')
+      } else {
+        this.$store.dispatch('sendChatData', {
+          'user_id': 0,
+          'resource_id': null,
+          'created_at': '',
+          'content': this.chatData,
+          'room_id': parseInt(this.$route.params.room_id),
+          'isYour': true
+        })
+        this.chatData = ''
+      }
     }
   }
 }
@@ -90,9 +94,9 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #f9f9fb;
   &--list {
-    padding: 20px 16px;
+    padding: 20px 16px 100px;
+    background-color: #f9f9fb;
   }
   &--item {
     margin-bottom: 10px;
@@ -110,6 +114,8 @@ export default {
       };
     }
     &.isYour {
+      width: 100%;
+      display: table;
       & > p {
         background-color: #5b36ac;
         color:#fff;
@@ -117,6 +123,10 @@ export default {
       & > figure {
         float: right;
         width: 200px;
+        margin-bottom: 10px;
+        & > img {
+          border-radius: 15px;
+        }
       }
     }
   }
@@ -152,6 +162,9 @@ export default {
         position: absolute;
         width: 26px;
         height: 18px;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
         background: {
           image: url('~@/assets/imgs/header/ic-send.svg');
           size: cover;

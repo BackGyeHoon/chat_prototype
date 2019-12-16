@@ -23,12 +23,12 @@ export default {
   },
   sendPhoto (state, payload) {
     state.messages.push({
-      user_id: 0,
+      user_id: 1,
       resource_id: payload.photoId,
-      created_at: null,
-      content: null,
+      created_at: '',
+      content: '',
       room_id: payload.room_id,
-      isYours: true
+      isYour: true
     })
   },
   setPhotoGallery (state) {

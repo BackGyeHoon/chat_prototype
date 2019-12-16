@@ -24,14 +24,6 @@
     "isYour": false
   },
   {
-    "user_id": 1,
-    "resource_id": null,
-    "created_at": "",
-    "content": "해외 출장중입니다.",
-    "room_id": 1,
-    "isYour": true
-  },
-  {
     "user_id": 2,
     "resource_id": null,
     "created_at": "",
