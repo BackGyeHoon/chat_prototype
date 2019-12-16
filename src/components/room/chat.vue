@@ -1,10 +1,13 @@
 <template>
-  <div class="chat">
+  <div
+    @scroll="handleScroll"
+    class="chat">
     <MyGallery v-if="isPhotoGallery"/>
-    <ul class="chat--list">
+    <!-- <ul class="chat--list"> -->
+      <transition-group class="chat--list" tag="ul">
       <li
-        v-for="chat in currentRoomMessages"
-        :key="chat.id"
+        v-for="(chat, index) in currentRoomMessages"
+        :key="index"
         :class="['chat--item', chat.isYour ? 'isYour' : 'isAnother']"
       >
         <template v-if="chat.content">
@@ -16,7 +19,8 @@
           </figure>
         </template>
       </li>
-    </ul>
+      </transition-group>
+    <!-- </ul> -->
     <div class="chat--footer">
       <input
         v-model="chatData"
@@ -65,6 +69,10 @@ export default {
   },
   mounted () {
     this.getMyGalleryData()
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed () {
+    window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
     ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage']),
@@ -81,7 +89,12 @@ export default {
           'isYour': true
         })
         this.chatData = ''
+        this.handleScroll()
       }
+    },
+    handleScroll (event) {
+      const scrollBottom = document.documentElement.scrollHeight
+      const moveScroll = document.querySelector('body').scrollTop = scrollBottom
     }
   }
 }
@@ -93,13 +106,17 @@ export default {
 .chat {
   position: absolute;
   width: 100%;
-  height: 100%;
+  min-height: 90%;
+  background-color: #f9f9fb;
+  overflow-x: hidden;
   &--list {
+    width: 100%;
+    height: 100%;
     padding: 20px 16px 100px;
-    background-color: #f9f9fb;
   }
   &--item {
     margin-bottom: 10px;
+    animation: itemEnter 0.5s;
     & > p {
       display: inline-block;
       padding: 12px;
@@ -129,6 +146,16 @@ export default {
         }
       }
     }
+    @keyframes itemEnter {
+      0% {
+        opacity: 0;
+        margin-left: 100px;
+      }
+      100% {
+        opacity: 1;
+        margin-left: 0;
+      }
+    }
   }
   &--footer {
     width: 100%;
@@ -136,6 +163,7 @@ export default {
     position: fixed;
     bottom: 0;
     padding: 20px 16px;
+    background-color: #f9f9fb;
     &__input {
       padding: 16px;
       width: 85%;
