@@ -1,12 +1,20 @@
 <template>
   <div>
+    <MyGallery />
     <ul>
       <li
         v-for="chat in currentRoomMessages"
         :key="chat.id"
         :class="[chat.isYour ? 'isYour' : 'isAnother']"
       >
-        <p>{{ chat.content }}</p>
+        <template v-if="chat.content">
+          <p>{{ chat.content }}</p>
+        </template>
+        <template v-else-if="chat.resource">
+          <figure>
+            <img :src="chat.resource.gallery_image_url">
+          </figure>
+        </template>
       </li>
     </ul>
     <div>
@@ -23,6 +31,8 @@
 </template>
 
 <script>
+import MyGallery from './myGallery'
+
 import { mapActions, mapGetters } from 'vuex'
 import { store } from '../../store/index'
 
@@ -35,6 +45,9 @@ export default {
       required: false
     }
   },
+  components: {
+    MyGallery
+  },
   data () {
     return {
       chatData: ''
@@ -43,12 +56,15 @@ export default {
   computed: {
     ...mapGetters(['currentRoomMessages'])
   },
+  mounted () {
+    this.getMyGalleryData()
+  },
   methods: {
-    ...mapActions(['sendChatData']),
+    ...mapActions(['sendChatData', 'getMyGalleryData']),
     sendChatMessage () {
       this.$store.dispatch('sendChatData', {
-        'user_id': 1,
-        'resource_id': 3,
+        'user_id': 0,
+        'resource_id': null,
         'created_at': '',
         'content': this.chatData,
         'room_id': parseInt(this.$route.params.room_id),

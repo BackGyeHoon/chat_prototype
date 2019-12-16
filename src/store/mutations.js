@@ -11,10 +11,25 @@ export default {
     const getMessagesData = require('../api/normalizeMessage.json')
     state.messages = getMessagesData
   },
+  getNormalizeMyGallerys (state) {
+    const getMyGalleryData = require('../api/myGalleryData.json')
+    state.photos = getMyGalleryData
+  },
   setCurrentRoomId (state, payload) {
     state.currentRoomId = parseInt(payload.payload.room_id)
   },
   sendMessage (state, payload) {
     state.messages.push(payload)
+  },
+  sendPhoto (state, payload) {
+    state.messages.push({
+      user_id: 0,
+      resource_id: payload.photoId,
+      created_at: null,
+      content: null,
+      room_id: payload.room_id,
+      isYours: true
+    })
+    console.log(payload)
   }
 }
