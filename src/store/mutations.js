@@ -30,5 +30,15 @@ export default {
       room_id: payload.room_id,
       isYours: true
     })
+  },
+  setPhotoGallery (state) {
+    if (state.isPhotoGallery) {
+      state.isPhotoGallery = false
+    } else {
+      state.isPhotoGallery = true
+    }
+  },
+  currentRoomMessagesState (state, payload) {
+    console.log(payload)
   }
 }

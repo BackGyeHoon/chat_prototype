@@ -4,5 +4,7 @@ export default {
   messages: [],
   photos: [],
   currentRoomId: null,
-  currentUser: null
+  currentUser: null,
+  isPhotoGallery: false,
+  isPhotoLoading: false
 }

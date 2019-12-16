@@ -15,5 +15,11 @@ export default {
   },
   sendPhotoData ({commit}, payload) {
     commit('sendPhoto', payload)
+  },
+  resetUnreadMessage ({commit}, payload) {
+    commit('currentRoomMessagesState', payload)
+  },
+  togglePhotoGallery ({commit}) {
+    commit('setPhotoGallery')
   }
 }

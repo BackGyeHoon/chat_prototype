@@ -1,11 +1,23 @@
 <template>
     <header
-        :class="['header', isList ? 'list' : 'room']"
+        :class="[
+          'header',
+          isList ? 'list' : 'room'
+        ]"
     >
       <template v-if="details">
-        <button class="header--menu">메뉴</button>
+        <button
+          @click="$router.go(-1)"
+          class="header--back"
+        >뒤로가기</button>
         <h2 class="header--title">{{ details.user.name }}</h2>
-        <button class="header--mypage">마이페이지</button>
+        <div>
+          <button
+            @click="togglePhotoGallery()"
+            class="header--photo"
+          >사진업로드</button>
+          <button class="header--search">검색</button>
+        </div>
       </template>
       <template v-else>
         <button class="header--menu">메뉴</button>
@@ -16,8 +28,12 @@
 </template>
 
 <script>
+import { store } from '../../store/index'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ZHeader',
+  store: store,
   props: {
     isList: {
       type: Boolean,
@@ -27,6 +43,9 @@ export default {
       type: [Array, Object],
       required: false
     }
+  },
+  methods: {
+    ...mapActions(['togglePhotoGallery'])
   }
 }
 </script>
@@ -40,7 +59,10 @@ export default {
     padding: 20px 12px;
     background-color: #5b36ac;
     &--menu,
-    &--mypage {
+    &--mypage,
+    &--back,
+    &--photo,
+    &--search {
         width: 24px;
         height: 24px;
         font-size: 0;
@@ -62,7 +84,17 @@ export default {
         background-image: url('~@/assets/imgs/header/ic-menu.svg');
     }
     &--mypage {
-        background-image: url(('~@/assets/imgs/header/ic-mypage.svg'));
+        background-image: url('~@/assets/imgs/header/ic-mypage.svg');
+    }
+    &--back {
+      background-image: url('~@/assets/imgs/header/ic-back.svg');
+    }
+    &--photo {
+      margin-right: 17px;
+      background-image: url('~@/assets/imgs/header/ic-upload.svg');
+    }
+    &--search {
+      background-image: url('~@/assets/imgs/header/ic-search.svg');
     }
 }
 
