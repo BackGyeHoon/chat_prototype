@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "gallery_image_url": "/static/imgs/gallery/img-shot-1.png",
+    "name": "갤러리 이미지1"
+  },
+  {
+    "id": 2,
+    "gallery_image_url": "/static/imgs/gallery/img-shot-2.png",
+    "name": "갤러리 이미지2"
+  },
+  {
+    "id": 3,
+    "gallery_image_url": "/static/imgs/gallery/img-shot-3.png",
+    "name": "갤러리 이미지3"
+  },
+  {
+    "id": 4,
+    "gallery_image_url": "/static/imgs/gallery/img-shot-4.png",
+    "name": "갤러리 이미지4"
+  },
+  {
+    "id": 5,
+    "gallery_image_url": "/static/imgs/gallery/img-shot-5.png",
+    "name": "갤러리 이미지5"
+  },
+  {
+    "id": 6,
+    "gallery_image_url": "/static/imgs/gallery/img-shot-6.png",
+    "name": "갤러리 이미지6"
+  },
+  {
+    "id": 7,
+    "gallery_image_url": "/static/imgs/gallery/img-shot-7.png",
+    "name": "갤러리 이미지7"
+  }
+]
