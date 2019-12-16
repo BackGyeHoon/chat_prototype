@@ -30,6 +30,5 @@ export default {
       room_id: payload.room_id,
       isYours: true
     })
-    console.log(payload)
   }
 }
