@@ -88,7 +88,7 @@ export default {
       margin-left: 15px;
       animation: itemView 0.5s;
       @keyframes itemView {
-      0% {
+        0% {
           opacity: 0;
           left: 100%;
         }
