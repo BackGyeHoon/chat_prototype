@@ -55,7 +55,10 @@ export default {
   },
   computed: {
     ...mapState(['isPhotoGallery']),
-    ...mapGetters(['currentRoomMessages'])
+    ...mapGetters(['currentRoomMessages']),
+    getDate () {
+      return new Date('Ymd')
+    }
   },
   mounted () {
     this.getMyGalleryData()
@@ -64,15 +67,23 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage', 'resetUnreadMessage', 'updateChatMessage']),
+    ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage', 'updateChatMessage']),
     sendChatMessage () {
+      const currentDate = new Date()
+      const currentHours = currentDate.getHours()
+      const currentMinute = currentDate.getMinutes()
+      const setTime = `${
+        currentHours < 10 ? `0${currentHours}` : currentHours}:${
+        currentMinute < 10 ? `0${currentMinute}` : currentMinute}
+      }`
+
       if (this.chatData === '') {
         alert('메세지를 입력해주세요.')
       } else {
         this.$store.dispatch('sendChatData', {
           'user_id': 0,
           'resource_id': null,
-          'created_at': '',
+          'created_at': setTime,
           'content': this.chatData,
           'room_id': parseInt(this.$route.params.room_id),
           'isYour': true

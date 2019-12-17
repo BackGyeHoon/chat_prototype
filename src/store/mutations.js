@@ -30,6 +30,8 @@ export default {
     state.currentRoomId = parseInt(payload.payload.room_id)
   },
   sendMessage (state, payload) {
+    const getChatTime = state.chats.find(chat => chat.room_id === payload.room_id)
+    getChatTime.created_at = payload.created_at
     state.messages.push(payload)
   },
   sendPhoto (state, payload) {

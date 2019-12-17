@@ -18,7 +18,7 @@
               <p class="item--content__upper-preview">{{ message.preview_message }}</p>
             </article>
             <article class="item--content__low">
-              <p class="item--content__low-time">{{ message.time }}</p>
+              <p class="item--content__low-time">{{ message.created_at }}</p>
               <p
                 v-if="message.unread_message > 0"
                 class="item--content__low-unread"
