@@ -39,6 +39,11 @@ export default {
     }
   },
   currentRoomMessagesState (state, payload) {
-    console.log(payload)
+    const getUnreadCnt = state.chats.find(chat => chat.room_id === payload.room_id)
+    getUnreadCnt.unread_message = 0
+  },
+  currentRoomUpdateChatMessage (state, payload) {
+    const getPreviewmessage = state.chats.find(chat => chat.room_id === payload.room_id)
+    getPreviewmessage.preview_message = payload.preview_message
   }
 }

@@ -21,5 +21,8 @@ export default {
   },
   togglePhotoGallery ({commit}) {
     commit('setPhotoGallery')
+  },
+  updateChatMessage ({commit}, payload) {
+    commit('currentRoomUpdateChatMessage', payload)
   }
 }

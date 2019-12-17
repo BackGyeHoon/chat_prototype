@@ -1,26 +1,22 @@
 <template>
-  <div
-    @scroll="handleScroll"
-    class="chat">
+  <div class="chat">
     <MyGallery v-if="isPhotoGallery"/>
-    <!-- <ul class="chat--list"> -->
-      <transition-group class="chat--list" tag="ul">
-      <li
-        v-for="(chat, index) in currentRoomMessages"
-        :key="index"
-        :class="['chat--item', chat.isYour ? 'isYour' : 'isAnother']"
-      >
-        <template v-if="chat.content">
-          <p>{{ chat.content }}</p>
-        </template>
-        <template v-else-if="chat.resource">
-          <figure>
-            <img :src="chat.resource.gallery_image_url">
-          </figure>
-        </template>
-      </li>
-      </transition-group>
-    <!-- </ul> -->
+      <ul class="chat--list">
+        <li
+          v-for="chat in currentRoomMessages"
+          :key="chat.id"
+          :class="['chat--item', chat.isYour ? 'isYour' : 'isAnother']"
+        >
+          <template v-if="chat.content">
+            <p>{{ chat.content }}</p>
+          </template>
+          <template v-else-if="chat.resource">
+            <figure>
+              <img :src="chat.resource.gallery_image_url">
+            </figure>
+          </template>
+        </li>
+      </ul>
     <div class="chat--footer">
       <input
         v-model="chatData"
@@ -62,20 +58,16 @@ export default {
   },
   computed: {
     ...mapState(['isPhotoGallery']),
-    ...mapGetters(['currentRoomMessages']),
-    getPreviewId () {
-      return this.messagesData.preview_id
-    }
+    ...mapGetters(['currentRoomMessages'])
   },
   mounted () {
     this.getMyGalleryData()
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  destroyed () {
-    window.addEventListener('scroll', this.handleScroll)
+    this.resetUnreadMessage({
+      'room_id': parseInt(this.$route.params.room_id)
+    })
   },
   methods: {
-    ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage']),
+    ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage', 'resetUnreadMessage', 'updateChatMessage']),
     sendChatMessage () {
       if (this.chatData === '') {
         alert('메세지를 입력해주세요.')
@@ -88,13 +80,12 @@ export default {
           'room_id': parseInt(this.$route.params.room_id),
           'isYour': true
         })
+        this.updateChatMessage({
+          'room_id': parseInt(this.$route.params.room_id),
+          'preview_message': this.chatData
+        })
         this.chatData = ''
-        this.handleScroll()
       }
-    },
-    handleScroll (event) {
-      const scrollBottom = document.documentElement.scrollHeight
-      const moveScroll = document.querySelector('body').scrollTop = scrollBottom
     }
   }
 }
