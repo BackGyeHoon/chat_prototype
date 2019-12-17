@@ -1,3 +1,12 @@
+function updateUnreadMessage (state, payload, type) {
+  const getChatsState = state.chats.find(chat => chat.room_id === payload.room_id)
+  if (type === 'cnt') {
+    getChatsState.unread_message = 0
+  } else if (type === 'message') {
+    getChatsState.preview_message = payload.preview_message
+  }
+}
+
 export default {
   getNormalizeUsers (state) {
     const getUsersData = require('../api/userInfoData.json')
@@ -39,11 +48,9 @@ export default {
     }
   },
   currentRoomMessagesState (state, payload) {
-    const getUnreadCnt = state.chats.find(chat => chat.room_id === payload.room_id)
-    getUnreadCnt.unread_message = 0
+    updateUnreadMessage(state, payload, 'cnt')
   },
   currentRoomUpdateChatMessage (state, payload) {
-    const getPreviewmessage = state.chats.find(chat => chat.room_id === payload.room_id)
-    getPreviewmessage.preview_message = payload.preview_message
+    updateUnreadMessage(state, payload, 'message')
   }
 }
