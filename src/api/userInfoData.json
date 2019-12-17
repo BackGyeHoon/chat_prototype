@@ -1,36 +1,41 @@
 [
   {
     "id": 1,
+    "profile_image_url": "",
+    "name": "본인"
+  },
+  {
+    "id": 2,
     "profile_image_url": "/static/imgs/profiles/img-profile-1.png",
     "name": "장만월 사장님"
   },
   {
-    "id": 2,
+    "id": 3,
     "profile_image_url": "/static/imgs/profiles/img-profile-3.png",
     "name": "신정근 바텐더"
   },
   {
-    "id": 3,
+    "id": 4,
     "profile_image_url": "/static/imgs/profiles/img-profile-4.png",
     "name": "이미라 의사"
   },
   {
-    "id": 4,
+    "id": 5,
     "profile_image_url": "/static/imgs/profiles/img-profile-5.png",
     "name": "구찬성 지배인"
   },
   {
-    "id": 5,
+    "id": 6,
     "profile_image_url": "/static/imgs/profiles/img-profile-6.png",
     "name": "노준석 총지배인"
   },
   {
-    "id": 6,
+    "id": 7,
     "profile_image_url": "/static/imgs/profiles/img-profile-7.png",
     "name": "김유나 인턴"
   },
   {
-    "id": 7,
+    "id": 8,
     "profile_image_url": "/static/imgs/profiles/img-profile-2.png",
     "name": "구현모"
   }

@@ -59,5 +59,8 @@ export default {
   },
   currentRoomMessagePhoto (state, payload) {
     updateUnreadMessage(state, payload, 'photo')
+  },
+  getCurrentUser (state) {
+    state.currentUserId = 1
   }
 }

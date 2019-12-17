@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list">
     <ZHeader :isList="true"/>
     <Zlist :messages="chatList"/>
   </div>
@@ -30,3 +30,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.list {
+  overflow-x: hidden;
+}
+</style>

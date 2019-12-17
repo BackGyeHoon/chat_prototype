@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['sendPhotoData'])
+    ...mapActions(['sendPhotoData']),
   }
 }
 </script>

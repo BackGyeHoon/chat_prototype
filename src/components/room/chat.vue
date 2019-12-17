@@ -5,7 +5,7 @@
         <li
           v-for="chat in currentRoomMessages"
           :key="chat.id"
-          :class="['chat--item', chat.isYour ? 'isYour' : 'isAnother']"
+          :class="['chat--item', chat.user_id === currentUserId ? 'isYour' : 'isFriend']"
         >
           <template v-if="chat.content">
             <p>{{ chat.content }}</p>
@@ -54,11 +54,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isPhotoGallery']),
-    ...mapGetters(['currentRoomMessages']),
-    getDate () {
-      return new Date('Ymd')
-    }
+    ...mapState(['isPhotoGallery', 'currentUserId']),
+    ...mapGetters(['currentRoomMessages'])
   },
   mounted () {
     this.getMyGalleryData()
@@ -74,14 +71,14 @@ export default {
       const currentMinute = currentDate.getMinutes()
       const setTime = `${
         currentHours < 10 ? `0${currentHours}` : currentHours}:${
-        currentMinute < 10 ? `0${currentMinute}` : currentMinute}
+        currentMinute < 10 ? `0${currentMinute}` : currentMinute
       }`
 
       if (this.chatData === '') {
         alert('메세지를 입력해주세요.')
       } else {
         this.$store.dispatch('sendChatData', {
-          'user_id': 0,
+          'user_id': this.currentUserId,
           'resource_id': null,
           'created_at': setTime,
           'content': this.chatData,

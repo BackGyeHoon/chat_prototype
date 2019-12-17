@@ -5,8 +5,18 @@
 </template>
 
 <script>
+import { store } from './store/index'
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'App'
+  name: 'App',
+  store: store,
+  mounted () {
+    this.getCurrentUserId()
+  },
+  methods: {
+    ...mapActions(['getCurrentUserId'])
+  }
 }
 </script>
 

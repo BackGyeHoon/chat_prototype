@@ -7,6 +7,9 @@ export default {
   getCurrentRoomId ({commit}, payload) {
     commit('setCurrentRoomId', payload)
   },
+  getCurrentUserId ({commit}) {
+    commit('getCurrentUser')
+  },
   getMyGalleryData ({ commit }) {
     commit('getNormalizeMyGallerys')
   },

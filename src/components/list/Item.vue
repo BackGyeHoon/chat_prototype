@@ -59,6 +59,7 @@ export default {
     display: flex;
     padding: 9px 16px;
     &__photo {
+      position: relative;
       & > figure {
         width: 56px;
         height: 56px;
@@ -66,13 +67,36 @@ export default {
           border-radius: 100%;
         }
       }
+      animation: itemPhoto 0.61s;
+      @keyframes itemPhoto {
+        0% {
+          opacity: 0;
+          right: 100%;
+        }
+        100% {
+          opacity: 1;
+          right: 0;
+        }
+      }
     }
     &__section {
+      position: relative;
       display: flex;
       padding: 9px 0;
       width: 100%;
       justify-content: space-between;
       margin-left: 15px;
+      animation: itemView 0.5s;
+      @keyframes itemView {
+      0% {
+          opacity: 0;
+          left: 100%;
+        }
+        100% {
+          opacity: 1;
+          left: 0;
+        }
+      }
     }
     &__upper {
       width: 80%;
