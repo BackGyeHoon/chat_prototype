@@ -12,7 +12,10 @@
           </template>
           <template v-else-if="chat.resource">
             <figure>
-              <img :src="chat.resource.gallery_image_url">
+              <img
+                :src="chat.resource.gallery_image_url"
+                :alt="chat.resource.name"
+              >
             </figure>
           </template>
         </li>
@@ -42,12 +45,6 @@ import { store } from '../../store/index'
 export default {
   name: 'Chat',
   store: store,
-  props: {
-    messagesData: {
-      type: [Array, Object],
-      required: false
-    }
-  },
   components: {
     MyGallery
   },

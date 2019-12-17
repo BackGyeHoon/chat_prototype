@@ -3,7 +3,7 @@
     <ZHeader
       :isList="false"
       :details="currentRoom"/>
-    <Chat :messagesData="currentRoom"/>
+    <Chat/>
   </div>
 </template>
 

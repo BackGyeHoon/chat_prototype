@@ -4,6 +4,8 @@ function updateUnreadMessage (state, payload, type) {
     getChatsState.unread_message = 0
   } else if (type === 'message') {
     getChatsState.preview_message = payload.preview_message
+  } else if (type === 'photo') {
+    getChatsState.preview_message = '사진을 보냈습니다.'
   }
 }
 
@@ -52,5 +54,8 @@ export default {
   },
   currentRoomUpdateChatMessage (state, payload) {
     updateUnreadMessage(state, payload, 'message')
+  },
+  currentRoomMessagePhoto (state, payload) {
+    updateUnreadMessage(state, payload, 'photo')
   }
 }
