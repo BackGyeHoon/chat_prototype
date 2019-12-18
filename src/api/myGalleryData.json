@@ -33,5 +33,10 @@
     "id": 7,
     "gallery_image_url": "/static/imgs/gallery/img-shot-7.png",
     "name": "갤러리 이미지7"
+  },
+  {
+    "id": 8,
+    "gallery_image_url": "/static/imgs/gallery/img-shot-1.png",
+    "name": "갤러리 이미지8"
   }
 ]

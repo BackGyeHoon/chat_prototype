@@ -5,7 +5,10 @@
         <li
           v-for="chat in currentRoomMessages"
           :key="chat.id"
-          :class="['chat--item', chat.user_id === currentUserId ? 'isYour' : 'isFriend']"
+          :class="[
+            'chat--item',
+            chat.user_id === currentUserId ? 'isYour' : 'isFriend'
+          ]"
         >
           <template v-if="chat.content">
             <p>{{ chat.content }}</p>

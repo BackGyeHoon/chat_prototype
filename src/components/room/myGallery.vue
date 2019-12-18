@@ -32,22 +32,28 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['sendPhotoData']),
+    ...mapActions(['sendPhotoData'])
   }
 }
 </script>
 <style lang="scss" scoped>
 .gallery {
-  display: flex;
-  width:100%;
+  position: relative;
+  width: 100%;
   height: auto;
   padding: 11px 16px;
   background-color: #5b36ac;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: smooth;
   &--item {
+    display: inline-block;
     margin-right: 10px;
     &__fig {
+      width: 46px;
       & > img {
-        border-radius: 10px;
+        border-radius: 7px;
       }
     }
     &:last-child {
