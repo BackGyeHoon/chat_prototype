@@ -56,15 +56,15 @@ export default {
     position: relative;
     justify-content: space-between;
     width: 100%;
-    padding: 20px 12px;
+    padding: 2rem 1.2rem;
     background-color: #5b36ac;
     &--menu,
     &--mypage,
     &--back,
     &--photo,
     &--search {
-        width: 24px;
-        height: 24px;
+        width: 2.4rem;
+        height: 2.4rem;
         font-size: 0;
         background-size: cover;
         cursor: pointer;
@@ -72,7 +72,7 @@ export default {
     &--title {
         position: absolute;
         font: {
-            size: 17px;
+            size: 1.7rem;
             weight: bold;
         }
         top: 50%;
@@ -90,7 +90,7 @@ export default {
       background-image: url('~@/assets/imgs/header/ic-back.svg');
     }
     &--photo {
-      margin-right: 17px;
+      margin-right: 1.7rem;
       background-image: url('~@/assets/imgs/header/ic-upload.svg');
     }
     &--search {
@@ -99,6 +99,6 @@ export default {
 }
 
 .list {
-  margin-bottom: 10px;
+  margin-bottom: 1.0rem;
 }
 </style>

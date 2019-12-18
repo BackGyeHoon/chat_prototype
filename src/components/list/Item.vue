@@ -54,15 +54,15 @@ export default {
 .item {
   display: inline-block;
   width: 100%;
-  height: 74px;
+  height: 7.4rem;
   &--content {
     display: flex;
-    padding: 9px 16px;
+    padding: .9rem 1.6rem;
     &__photo {
       position: relative;
       & > figure {
-        width: 56px;
-        height: 56px;
+        width: 5.6rem;
+        height: 5.6rem;
         & > img {
           border-radius: 100%;
         }
@@ -82,10 +82,10 @@ export default {
     &__section {
       position: relative;
       display: flex;
-      padding: 9px 0;
+      padding: .9rem 0;
       width: 100%;
       justify-content: space-between;
-      margin-left: 15px;
+      margin-left: 1.5rem;
       animation: itemView 0.5s;
       @keyframes itemView {
         0% {
@@ -102,20 +102,21 @@ export default {
       width: 80%;
       font-size: 0;
       &-name {
-        padding-bottom: 6px;
+        padding-bottom: .6rem;
         font: {
-          size: 16px;
+          size: 1.6rem;
           weight: bold;
         }
       }
       &-preview {
-        /* width: 100%;
+        width: 23rem;
+        white-space: nowrap;
         overflow: hidden;
+        word-wrap: normal;
         text-overflow: ellipsis;
-        white-space: nowrap; */
         color: #a4a6b0;
         font: {
-          size: 13px;
+          size: 1.3rem;
           weight:500;
         }
       }
@@ -127,22 +128,22 @@ export default {
       &-time {
         color: #363a42;;
         font: {
-          size: 11px;
+          size: 1.1rem;
           weight: 500;
         }
       }
       &-unread {
         float: right;
-        width: 18px;
-        height: 18px;;
-        margin-top: 8px;
+        width: 1.8rem;
+        height: 1.8rem;
+        margin-top: .8rem;
         border-radius: 100%;
         background-color: #5b36ac;
         color: #fff;
         text-align: center;
         line-height: 1.8;
         font: {
-          size: 10px;
+          size: 1rem;
           weight: bold;
         }
       }

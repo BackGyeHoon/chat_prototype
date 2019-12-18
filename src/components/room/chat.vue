@@ -65,6 +65,7 @@ export default {
     this.resetUnreadMessage({
       'room_id': parseInt(this.$route.params.room_id)
     })
+    this.moveBottomScroll()
   },
   methods: {
     ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage', 'updateChatMessage']),
@@ -93,7 +94,14 @@ export default {
           'preview_message': this.chatData
         })
         this.chatData = ''
+        this.moveBottomScroll()
       }
+    },
+    moveBottomScroll () {
+      const container = document.querySelector('.chat--list')
+      const scrollHeight = container.scrollHeight
+      container.scrollTop = scrollHeight
+      console.log(container.scrollTop)
     }
   }
 }
@@ -107,25 +115,25 @@ export default {
   width: 100%;
   min-height: 90%;
   background-color: #f9f9fb;
-  overflow-x: hidden;
+  overflow: hidden;
   &--list {
     width: 100%;
     height: 100%;
-    padding: 20px 16px 100px;
+    padding: 2rem 1.6rem 10rem;
   }
   &--item {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
     animation: itemEnter 0.5s;
     & > p {
       display: inline-block;
-      padding: 12px;
+      padding: 1.2rem;
       background-color: #fff;
-      letter-spacing: -0.1px;
+      letter-spacing: -0.01rem;
       color: #363a42;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+      border-radius: 1.2rem;
+      box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,0.1);
       font: {
-        size: 14px;
+        size: 1.4rem;
         weight: 600;
       };
     }
@@ -138,17 +146,17 @@ export default {
       }
       & > figure {
         float: right;
-        width: 200px;
-        margin-bottom: 10px;
+        width: 20rem;
+        margin-bottom: 1rem;
         & > img {
-          border-radius: 15px;
+          border-radius: 1.5rem;
         }
       }
     }
     @keyframes itemEnter {
       0% {
         opacity: 0;
-        margin-left: 100px;
+        margin-left: 10rem;
       }
       100% {
         opacity: 1;
@@ -161,34 +169,34 @@ export default {
     display: flex;
     position: fixed;
     bottom: 0;
-    padding: 20px 16px;
+    padding: 2rem 1.6rem;
     background-color: #f9f9fb;
     &__input {
-      padding: 16px;
+      padding: 1.6rem;
       width: 85%;
-      height: 50px;
+      height: 5rem;
       border: 0;
       background-color: #fff;
-      border-radius: 25px;
-      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+      border-radius: 2.5rem;
+      box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,0.1);
       font: {
-        size: 14px;
+        size: 1.4rem;
         weight:500;
       }
     }
     &__btn {
       position: relative;
-      width: 50px;
-      height: 50px;
-      margin-left: 12px;
+      width: 5rem;
+      height: 5rem;
+      margin-left: 1.2rem;
       background-color: #5b36ac;
       border-radius: 100%;
       text-indent: -9999px;
       &:after {
         content: '';
         position: absolute;
-        width: 26px;
-        height: 18px;
+        width: 2.6rem;
+        height: 1.8rem;
         top: 50%;
         left: 50%;
         transform: translateX(-50%) translateY(-50%);

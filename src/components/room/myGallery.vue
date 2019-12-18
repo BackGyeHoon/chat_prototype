@@ -11,7 +11,10 @@
             :src="photo.gallery_image_url"
             :alt="photo.name"
             :title="photo.name"
-            @click="sendPhotoData({ photoId: photo.id, room_id: getRoomId})"
+            @click="sendPhotoData({
+              photoId: photo.id,
+              room_id: getRoomId
+            })"
           />
         </figure>
       </li>
@@ -41,19 +44,20 @@ export default {
   position: relative;
   width: 100%;
   height: auto;
-  padding: 11px 16px;
+  padding: 1.1rem 1.6rem;
   background-color: #5b36ac;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+  font-size: 0;
   -webkit-overflow-scrolling: smooth;
   &--item {
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 1rem;
     &__fig {
-      width: 46px;
+      width: 4.6rem;
       & > img {
-        border-radius: 7px;
+        border-radius: .7rem;
       }
     }
     &:last-child {
