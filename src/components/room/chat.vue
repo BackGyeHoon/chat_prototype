@@ -65,6 +65,11 @@ export default {
       window.requestAnimationFrame(() => {
         this.moveBottomScroll()
       })
+      this.updateChatMessage({
+        'room_id': parseInt(this.$route.params.room_id),
+        'preview_message': content
+      })
+      this.chatData = ''
       await this.$store.dispatch('sendChatData', {
         'user_id': this.currentUserId,
         'resource_id': photoId,
@@ -72,10 +77,6 @@ export default {
         'content': content,
         'room_id': parseInt(this.$route.params.room_id),
         'cancelToken': this.cancelToken
-      })
-      this.updateChatMessage({
-        'room_id': parseInt(this.$route.params.room_id),
-        'preview_message': content
       })
     },
     moveBottomScroll () {
@@ -91,7 +92,6 @@ export default {
     },
     handleSubmitMessage () {
       this.sendChatMessage({ content: this.chatData })
-      this.chatData = ''
     }
   }
 }
