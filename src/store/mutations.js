@@ -1,6 +1,6 @@
 function updateUnreadMessage (state, payload, type) {
   const getChatsState = state.chats.find(chat => chat.room_id === payload.room_id)
-  if (type === 'cnt') {
+  if (type === 'count') {
     getChatsState.unread_message = 0
   } else if (type === 'message') {
     getChatsState.preview_message = payload.preview_message
@@ -34,15 +34,9 @@ export default {
     getChatTime.created_at = payload.created_at
     state.messages.push(payload)
   },
-  sendPhoto (state, payload) {
-    state.messages.push({
-      user_id: 1,
-      resource_id: payload.photoId,
-      created_at: '',
-      content: '',
-      room_id: payload.room_id,
-      isYour: true
-    })
+  removeMessageData (state, payload) {
+    const getMessageData = state.messages.filter(message => message.id !== payload.id)
+    state.messages = getMessageData
   },
   setPhotoGallery (state) {
     if (state.isPhotoGallery) {
@@ -52,7 +46,7 @@ export default {
     }
   },
   currentRoomMessagesState (state, payload) {
-    updateUnreadMessage(state, payload, 'cnt')
+    updateUnreadMessage(state, payload, 'count')
   },
   currentRoomUpdateChatMessage (state, payload) {
     updateUnreadMessage(state, payload, 'message')
@@ -62,5 +56,20 @@ export default {
   },
   getCurrentUser (state) {
     state.currentUserId = 1
+  },
+  setGalleryState (state) {
+    state.isPhotoGallery = false
+  },
+  setLoading (state, { messageId, loading }) {
+    state.photoLoadingMap = {
+      ...state.photoLoadingMap,
+      [messageId]: loading
+    }
+  },
+  setPhotoUploadProgress (state, { messageId, progress }) {
+    state.photoUploadProgessMap = {
+      ...state.photoUploadProgessMap,
+      [messageId]: progress
+    }
   }
 }

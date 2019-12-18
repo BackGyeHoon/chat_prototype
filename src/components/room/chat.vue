@@ -1,29 +1,16 @@
 <template>
   <div class="chat">
-    <MyGallery v-if="isPhotoGallery"/>
+    <MyGallery @sendPhotoData="setPhotoData" v-if="isPhotoGallery"/>
       <ul class="chat--list">
         <li
           v-for="chat in currentRoomMessages"
           :key="chat.id"
-          :class="[
-            'chat--item',
-            chat.user_id === currentUserId ? 'isYour' : 'isFriend'
-          ]"
+          class="chat--item"
         >
-          <template v-if="chat.content">
-            <p>{{ chat.content }}</p>
-          </template>
-          <template v-else-if="chat.resource">
-            <figure>
-              <img
-                :src="chat.resource.gallery_image_url"
-                :alt="chat.resource.name"
-              >
-            </figure>
-          </template>
+          <Message @cancelState="setCancelState" :messageObject='chat'/>
         </li>
       </ul>
-    <div class="chat--footer">
+    <form @submit.prevent="handleSubmitMessage" class="chat--footer">
       <input
         v-model="chatData"
         type="text"
@@ -31,16 +18,18 @@
         placeholder="메세지를 입력하세요.."
       >
       <button
-        @click="sendChatMessage()"
-        class="chat--footer__btn"
+        :class="[
+          'chat--footer__btn']"
+        :disabled="chatData === ''"
         type="submit"
       >전송</button>
-    </div>
+    </form>
   </div>
 </template>
 
 <script>
 import MyGallery from './myGallery'
+import Message from './message'
 
 import { mapActions, mapGetters, mapState } from 'vuex'
 import { store } from '../../store/index'
@@ -49,15 +38,18 @@ export default {
   name: 'Chat',
   store: store,
   components: {
-    MyGallery
+    MyGallery,
+    Message
   },
   data () {
     return {
-      chatData: ''
+      chatData: '',
+      cancelToken: { isCancel: false },
+      setPhotoId: ''
     }
   },
   computed: {
-    ...mapState(['isPhotoGallery', 'currentUserId']),
+    ...mapState(['isPhotoGallery', 'currentUserId', 'isPhotoLoading']),
     ...mapGetters(['currentRoomMessages'])
   },
   mounted () {
@@ -69,7 +61,8 @@ export default {
   },
   methods: {
     ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage', 'updateChatMessage']),
-    sendChatMessage () {
+    async sendChatMessage ({ content = '', photoId = null }) {
+      this.cancelToken = { isCancel: false }
       const currentDate = new Date()
       const currentHours = currentDate.getHours()
       const currentMinute = currentDate.getMinutes()
@@ -77,31 +70,36 @@ export default {
         currentHours < 10 ? `0${currentHours}` : currentHours}:${
         currentMinute < 10 ? `0${currentMinute}` : currentMinute
       }`
-
-      if (this.chatData === '') {
-        alert('메세지를 입력해주세요.')
-      } else {
-        this.$store.dispatch('sendChatData', {
-          'user_id': this.currentUserId,
-          'resource_id': null,
-          'created_at': setTime,
-          'content': this.chatData,
-          'room_id': parseInt(this.$route.params.room_id),
-          'isYour': true
-        })
-        this.updateChatMessage({
-          'room_id': parseInt(this.$route.params.room_id),
-          'preview_message': this.chatData
-        })
-        this.chatData = ''
+      await this.$store.dispatch('sendChatData', {
+        'user_id': this.currentUserId,
+        'resource_id': photoId,
+        'created_at': setTime,
+        'content': content,
+        'room_id': parseInt(this.$route.params.room_id),
+        'cancelToken': this.cancelToken
+      })
+      this.updateChatMessage({
+        'room_id': parseInt(this.$route.params.room_id),
+        'preview_message': this.chatData
+      })
+      this.chatData = ''
+      window.requestAnimationFrame(() => {
         this.moveBottomScroll()
-      }
+      })
     },
     moveBottomScroll () {
-      const container = document.querySelector('.chat--list')
+      const container = document.querySelector('body, html')
       const scrollHeight = container.scrollHeight
       container.scrollTop = scrollHeight
-      console.log(container.scrollTop)
+    },
+    setCancelState () {
+      this.cancelToken.isCancel = true
+    },
+    setPhotoData ({ photoId }) {
+      this.sendChatMessage({ photoId: photoId })
+    },
+    handleSubmitMessage () {
+      this.sendChatMessage({ content: this.chatData })
     }
   }
 }
@@ -123,46 +121,8 @@ export default {
   }
   &--item {
     margin-bottom: 1rem;
+    line-height: 1.5;
     animation: itemEnter 0.5s;
-    & > p {
-      display: inline-block;
-      padding: 1.2rem;
-      background-color: #fff;
-      letter-spacing: -0.01rem;
-      color: #363a42;
-      border-radius: 1.2rem;
-      box-shadow: 0 .2rem .4rem 0 rgba(0,0,0,0.1);
-      font: {
-        size: 1.4rem;
-        weight: 600;
-      };
-    }
-    &.isYour {
-      width: 100%;
-      display: table;
-      & > p {
-        background-color: #5b36ac;
-        color:#fff;
-      }
-      & > figure {
-        float: right;
-        width: 20rem;
-        margin-bottom: 1rem;
-        & > img {
-          border-radius: 1.5rem;
-        }
-      }
-    }
-    @keyframes itemEnter {
-      0% {
-        opacity: 0;
-        margin-left: 10rem;
-      }
-      100% {
-        opacity: 1;
-        margin-left: 0;
-      }
-    }
   }
   &--footer {
     width: 100%;
@@ -171,9 +131,10 @@ export default {
     bottom: 0;
     padding: 2rem 1.6rem;
     background-color: #f9f9fb;
+    z-index: 9999;
     &__input {
       padding: 1.6rem;
-      width: 85%;
+      width: 28.1rem;
       height: 5rem;
       border: 0;
       background-color: #fff;
@@ -192,6 +153,11 @@ export default {
       background-color: #5b36ac;
       border-radius: 100%;
       text-indent: -9999px;
+      transition: 500ms;
+      &:disabled {
+        background-color: gray;
+        transition: 500ms;
+      }
       &:after {
         content: '';
         position: absolute;

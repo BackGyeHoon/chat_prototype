@@ -6,5 +6,6 @@ export default {
   currentRoomId: null,
   currentUserId: null,
   isPhotoGallery: false,
-  isPhotoLoading: false
+  photoLoadingMap: {},
+  photoUploadProgessMap: {}
 }

@@ -1,7 +1,15 @@
+function denormalizeResource (state, id, messageId) {
+  return {
+    ...state.photos.find(photo => photo.id === id),
+    loading: Boolean(state.photoLoadingMap[messageId]),
+    progress: state.photoUploadProgessMap[messageId]
+  }
+}
+
 function denormalizeMessage (state, message) {
   return {
     ...message,
-    resource: state.photos.find(photo => photo.id === message.resource_id),
+    resource: denormalizeResource(state, message.resource_id, message.id),
     preview_data: state.chats.find(chat => chat.room_id === message.room_id)
   }
 }

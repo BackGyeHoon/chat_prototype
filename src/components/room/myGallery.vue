@@ -11,9 +11,8 @@
             :src="photo.gallery_image_url"
             :alt="photo.name"
             :title="photo.name"
-            @click="sendPhotoData({
-              photoId: photo.id,
-              room_id: getRoomId
+            @click="$emit('sendPhotoData', {
+              photoId: photo.id
             })"
           />
         </figure>
@@ -23,7 +22,7 @@
 </template>
 <script>
 import { store } from '../../store/index'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'myGallery',
@@ -33,9 +32,6 @@ export default {
     getRoomId () {
       return parseInt(this.$route.params.room_id)
     }
-  },
-  methods: {
-    ...mapActions(['sendPhotoData'])
   }
 }
 </script>

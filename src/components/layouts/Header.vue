@@ -1,13 +1,14 @@
 <template>
-    <header
+    <header class="header-parent">
+      <div
         :class="[
           'header',
           isList ? 'list' : 'room'
         ]"
-    >
+      >
       <template v-if="details">
         <button
-          @click="$router.go(-1)"
+          @click="setPageBackState"
           class="header--back"
         >뒤로가기</button>
         <h2 class="header--title">{{ details.user.name }}</h2>
@@ -24,6 +25,7 @@
         <h2 class="header--title">채팅</h2>
         <button class="header--mypage">마이페이지</button>
       </template>
+      </div>
     </header>
 </template>
 
@@ -45,12 +47,20 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['togglePhotoGallery'])
+    ...mapActions(['togglePhotoGallery', 'setGalleryState']),
+    setPageBackState () {
+      this.setGalleryState()
+      this.$router.push('/list')
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.header-parent {
+  width: 100%;
+  height: 6.4rem;
+}
 .header {
     display: flex;
     position: relative;
@@ -96,6 +106,12 @@ export default {
     &--search {
       background-image: url('~@/assets/imgs/header/ic-search.svg');
     }
+  &.room {
+    position: fixed;
+    height: inherit;
+    top: 0;
+    z-index: 9999;
+  }
 }
 
 .list {

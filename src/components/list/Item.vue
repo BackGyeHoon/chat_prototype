@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="list">
     <li
       v-for="message in messages"
       :key="message.id"
@@ -32,25 +32,21 @@
 </template>
 
 <script>
-import { store } from '../../store/index'
-import { mapActions } from 'vuex'
-
 export default {
   name: 'item',
-  store: store,
   props: {
     messages: {
       type: [Array, Object],
       required: true
     }
-  },
-  methods: {
-    ...mapActions(['insertChat'])
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.list {
+  margin-top: 1rem;
+}
 .item {
   display: inline-block;
   width: 100%;
