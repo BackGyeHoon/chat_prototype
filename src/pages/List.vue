@@ -1,32 +1,26 @@
 <template>
   <div class="list">
-    <ZHeader :isList="true"/>
-    <Zlist :messages="chatList"/>
+    <Header :isList="true"/>
+    <List :messages="chatList"/>
   </div>
 </template>
 
 <script>
 import 'babel-polyfill'
-import ZHeader from '@/components/layouts/Header'
-import Zlist from '@/components/list/Item'
+import Header from '@/components/layouts/Header'
+import List from '@/components/list/Item'
 import { store } from '../store/index'
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'list',
   store: store,
   components: {
-    ZHeader,
-    Zlist
+    Header,
+    List
   },
   computed: {
     ...mapGetters(['chatList'])
-  },
-  mounted () {
-    this.getChatListData()
-  },
-  methods: {
-    ...mapActions(['getChatListData'])
   }
 }
 </script>

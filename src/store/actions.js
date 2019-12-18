@@ -1,10 +1,10 @@
-import { sendPhotoApi, sendMessageApi } from '../api/index'
+import { sendPhotoApi, sendMessageApi, normalizeUsers, normalizeChats, normalizeMessage, normalizeMyGallerys } from '../api/index'
 
 export default {
-  getChatListData ({commit}) {
-    commit('getNormalizeUsers')
-    commit('getNormalizeChats')
-    commit('getNormalizeMessage')
+  async getChatListData ({commit}) {
+    commit('getNormalizeUsers', await normalizeUsers())
+    commit('getNormalizeChats', await normalizeChats())
+    commit('getNormalizeMessage', await normalizeMessage())
   },
   getCurrentRoomId ({commit}, payload) {
     commit('setCurrentRoomId', payload)
@@ -12,17 +12,16 @@ export default {
   getCurrentUserId ({commit}) {
     commit('getCurrentUser')
   },
-  getMyGalleryData ({ commit }) {
-    commit('getNormalizeMyGallerys')
+  async getMyGalleryData ({ commit }) {
+    commit('getNormalizeMyGallerys', await normalizeMyGallerys())
   },
   async sendChatData ({commit}, payload) {
     const resultMessageData = await sendMessageApi(payload)
     try {
       commit('setLoading', { messageId: payload.photoId, loading: true })
       commit('sendMessage', resultMessageData)
-      commit('currentRoomMessagePhoto', payload)
       await sendPhotoApi(payload, payload.cancelToken, progress => {
-        commit('setPhotoUploadProgress', { messageId: resultMessageData.id, progress })
+        commit('setPhotoUploadProgress', { messageId: resultMessageData.id, progress, roomId: resultMessageData.room_id })
       })
     } catch (e) {
       commit('removeMessageData', resultMessageData)
@@ -34,12 +33,12 @@ export default {
     commit('currentRoomMessagesState', payload)
   },
   togglePhotoGallery ({commit}) {
-    commit('setPhotoGallery')
+    commit('togglePhotoGallery')
   },
   updateChatMessage ({commit}, payload) {
-    commit('currentRoomUpdateChatMessage', payload)
+    commit('currentRoomUpdatePreview', payload)
   },
   setGalleryState ({commit}) {
-    commit('setGalleryState')
+    commit('hideGalleryState')
   }
 }

@@ -27,11 +27,10 @@ export default {
     }
   },
   mounted () {
-    this.getChatListData()
     this.getCurrentRoomIdData()
   },
   methods: {
-    ...mapActions(['getChatListData', 'getCurrentRoomId']),
+    ...mapActions(['getCurrentRoomId']),
     getCurrentRoomIdData () {
       this.$store.dispatch('getCurrentRoomId', { payload: this.$route.params })
     }

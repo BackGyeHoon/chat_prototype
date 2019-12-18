@@ -9,7 +9,7 @@ function denormalizeResource (state, id, messageId) {
 function denormalizeMessage (state, message) {
   return {
     ...message,
-    resource: denormalizeResource(state, message.resource_id, message.id),
+    resource: message.resource_id && denormalizeResource(state, message.resource_id, message.id),
     preview_data: state.chats.find(chat => chat.room_id === message.room_id)
   }
 }
@@ -20,7 +20,7 @@ function denormalizeChat (state, chat) {
   return {
     ...chat,
     user,
-    chats: denormalizeMessage(state, previewMessage)
+    previewMessage: previewMessage && denormalizeMessage(state, previewMessage)
   }
 }
 

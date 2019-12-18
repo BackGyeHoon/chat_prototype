@@ -13,9 +13,10 @@ export default {
   store: store,
   mounted () {
     this.getCurrentUserId()
+    this.getChatListData()
   },
   methods: {
-    ...mapActions(['getCurrentUserId'])
+    ...mapActions(['getCurrentUserId', 'getChatListData'])
   }
 }
 </script>

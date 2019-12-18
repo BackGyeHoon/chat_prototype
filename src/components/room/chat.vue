@@ -18,8 +18,7 @@
         placeholder="메세지를 입력하세요.."
       >
       <button
-        :class="[
-          'chat--footer__btn']"
+        class="chat--footer__btn"
         :disabled="chatData === ''"
         type="submit"
       >전송</button>
@@ -63,28 +62,20 @@ export default {
     ...mapActions(['sendChatData', 'getMyGalleryData', 'resetUnreadMessage', 'updateChatMessage']),
     async sendChatMessage ({ content = '', photoId = null }) {
       this.cancelToken = { isCancel: false }
-      const currentDate = new Date()
-      const currentHours = currentDate.getHours()
-      const currentMinute = currentDate.getMinutes()
-      const setTime = `${
-        currentHours < 10 ? `0${currentHours}` : currentHours}:${
-        currentMinute < 10 ? `0${currentMinute}` : currentMinute
-      }`
+      window.requestAnimationFrame(() => {
+        this.moveBottomScroll()
+      })
       await this.$store.dispatch('sendChatData', {
         'user_id': this.currentUserId,
         'resource_id': photoId,
-        'created_at': setTime,
+        'updated_at': new Date(),
         'content': content,
         'room_id': parseInt(this.$route.params.room_id),
         'cancelToken': this.cancelToken
       })
       this.updateChatMessage({
         'room_id': parseInt(this.$route.params.room_id),
-        'preview_message': this.chatData
-      })
-      this.chatData = ''
-      window.requestAnimationFrame(() => {
-        this.moveBottomScroll()
+        'preview_message': content
       })
     },
     moveBottomScroll () {
@@ -100,6 +91,7 @@ export default {
     },
     handleSubmitMessage () {
       this.sendChatMessage({ content: this.chatData })
+      this.chatData = ''
     }
   }
 }
@@ -122,7 +114,6 @@ export default {
   &--item {
     margin-bottom: 1rem;
     line-height: 1.5;
-    animation: itemEnter 0.5s;
   }
   &--footer {
     width: 100%;

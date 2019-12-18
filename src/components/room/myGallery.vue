@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="parent">
     <ul class="gallery">
       <li
         v-for="photo in photos"
@@ -36,17 +36,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.gallery {
-  position: relative;
-  width: 100%;
-  height: auto;
-  padding: 1.1rem 1.6rem;
-  background-color: #5b36ac;
+.parent {
+  position: fixed;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
   font-size: 0;
   -webkit-overflow-scrolling: smooth;
+  width: 100%;
+  top:6.4rem;
+  z-index:99;
+  background-color: #5b36ac;
+}
+.gallery {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 1.1rem 1.6rem;
   &--item {
     display: inline-block;
     margin-right: 1rem;

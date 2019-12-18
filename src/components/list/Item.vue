@@ -15,10 +15,10 @@
           <div class="item--content__section">
             <article class="item--content__upper">
               <h2 class="item--content__upper-name">{{ message.user.name }}</h2>
-              <p class="item--content__upper-preview">{{ message.preview_message }}</p>
+              <p class="item--content__upper-preview">{{ message.resource_id ? '사진을 보냈습니다.' : message.preview_message }}</p>
             </article>
             <article class="item--content__low">
-              <p class="item--content__low-time">{{ message.created_at }}</p>
+              <p class="item--content__low-time">{{ message.updated_at | moment }}</p>
               <p
                 v-if="message.unread_message > 0"
                 class="item--content__low-unread"
@@ -32,12 +32,27 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: 'item',
   props: {
     messages: {
       type: [Array, Object],
       required: true
+    }
+  },
+  methods: {
+    moment: function (date) {
+      return moment(date)
+    },
+    date: function (date) {
+      return moment(date).format('h:mm')
+    }
+  },
+  filters: {
+    moment: function (date) {
+      return moment(date).format('h:mm')
     }
   }
 }

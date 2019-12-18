@@ -55,8 +55,19 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@keyframes itemEnter {
+  0% {
+    opacity: 0;
+    left: 10rem;
+  }
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+}
 .message {
   &--content {
+    position: relative;
     display: inline-block;
     padding: 1.2rem;
     background-color: #fff;
@@ -68,7 +79,8 @@ export default {
     font: {
       size: 1.4rem;
       weight: 600;
-    };
+    }
+    animation: itemEnter 0.5s;
   }
   &.isYour {
     width: 100%;
@@ -82,19 +94,10 @@ export default {
       float: right;
       width: 20rem;
       margin-bottom: 1rem;
+      animation: itemEnter 0.5s;
       & > img {
         border-radius: 1.5rem;
       }
-    }
-  }
-  @keyframes itemEnter {
-    0% {
-      opacity: 0;
-      margin-left: 10rem;
-    }
-    100% {
-      opacity: 1;
-      margin-left: 0;
     }
   }
   &--cancel {
@@ -134,6 +137,17 @@ export default {
       background-color: #5b36ac;
       transition: all 500ms;
     }
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform-origin: 100% 100%;
+    transform: rotate(0deg);
+  }
+  100% {
+    transform-origin: 100% 100%;
+    transform: rotate(360deg);
   }
 }
 </style>

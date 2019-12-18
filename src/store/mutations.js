@@ -1,63 +1,86 @@
-function updateUnreadMessage (state, payload, type) {
-  const getChatsState = state.chats.find(chat => chat.room_id === payload.room_id)
-  if (type === 'count') {
-    getChatsState.unread_message = 0
-  } else if (type === 'message') {
-    getChatsState.preview_message = payload.preview_message
-  } else if (type === 'photo') {
-    getChatsState.preview_message = '사진을 보냈습니다.'
-  }
-}
+// function updateUnreadMessage (state, payload, type) {
+//   const getChatsState = state.chats.find(chat => chat.room_id === payload.room_id)
+//   if (type === 'count') {
+//     getChatsState.unread_message = 0
+//   } else if (type === 'message') {
+//     getChatsState.preview_message = payload.preview_message
+//   } else if (type === 'photo') {
+//     getChatsState.preview_message = '사진을 보냈습니다.'
+//   }
+// }
 
 export default {
-  getNormalizeUsers (state) {
-    const getUsersData = require('../api/userInfoData.json')
-    state.users = getUsersData
+  getNormalizeUsers (state, payload) {
+    state.users = payload
   },
-  getNormalizeChats (state) {
-    const getChatsData = require('../api/usedChatData.json')
-    state.chats = getChatsData
+  getNormalizeChats (state, payload) {
+    state.chats = payload
   },
-  getNormalizeMessage (state) {
-    const getMessagesData = require('../api/normalizeMessage.json')
-    state.messages = getMessagesData
+  getNormalizeMessage (state, payload) {
+    state.messages = payload
   },
-  getNormalizeMyGallerys (state) {
-    const getMyGalleryData = require('../api/myGalleryData.json')
-    state.photos = getMyGalleryData
+  getNormalizeMyGallerys (state, payload) {
+    state.photos = payload
   },
   setCurrentRoomId (state, payload) {
     state.currentRoomId = parseInt(payload.payload.room_id)
   },
   sendMessage (state, payload) {
-    const getChatTime = state.chats.find(chat => chat.room_id === payload.room_id)
-    getChatTime.created_at = payload.created_at
     state.messages.push(payload)
+    state.chats = state.chats.map(chat => {
+      if (chat.id === payload.room_id) {
+        return {
+          ...chat,
+          updated_at: payload.updated_at,
+          resource_id: payload.resource_id
+        }
+      } else {
+        return chat
+      }
+    })
   },
   removeMessageData (state, payload) {
-    const getMessageData = state.messages.filter(message => message.id !== payload.id)
-    state.messages = getMessageData
+    console.log(payload)
+    state.messages = state.messages.filter(message => {
+      if (message.id !== payload.id) {
+        return {
+          ...message
+        }
+      }
+    })
   },
-  setPhotoGallery (state) {
-    if (state.isPhotoGallery) {
-      state.isPhotoGallery = false
-    } else {
-      state.isPhotoGallery = true
-    }
+  togglePhotoGallery (state) {
+    state.isPhotoGallery = !state.isPhotoGallery
   },
   currentRoomMessagesState (state, payload) {
-    updateUnreadMessage(state, payload, 'count')
+    state.chats = state.chats.map(chat => {
+      if (chat.id === payload.room_id) {
+        return {
+          ...chat,
+          unread_message: 0
+        }
+      } else {
+        return chat
+      }
+    })
   },
-  currentRoomUpdateChatMessage (state, payload) {
-    updateUnreadMessage(state, payload, 'message')
-  },
-  currentRoomMessagePhoto (state, payload) {
-    updateUnreadMessage(state, payload, 'photo')
+  currentRoomUpdatePreview (state, payload) {
+    state.chats = state.chats.map(chat => {
+      if (chat.id === payload.room_id) {
+        return {
+          ...chat,
+          preview_id: payload.message_id,
+          preview_message: payload.preview_message
+        }
+      } else {
+        return chat
+      }
+    })
   },
   getCurrentUser (state) {
     state.currentUserId = 1
   },
-  setGalleryState (state) {
+  hideGalleryState (state) {
     state.isPhotoGallery = false
   },
   setLoading (state, { messageId, loading }) {
