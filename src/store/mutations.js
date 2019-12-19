@@ -1,14 +1,3 @@
-// function updateUnreadMessage (state, payload, type) {
-//   const getChatsState = state.chats.find(chat => chat.room_id === payload.room_id)
-//   if (type === 'count') {
-//     getChatsState.unread_message = 0
-//   } else if (type === 'message') {
-//     getChatsState.preview_message = payload.preview_message
-//   } else if (type === 'photo') {
-//     getChatsState.preview_message = '사진을 보냈습니다.'
-//   }
-// }
-
 export default {
   getNormalizeUsers (state, payload) {
     state.users = payload
@@ -40,7 +29,6 @@ export default {
     })
   },
   removeMessageData (state, payload) {
-    console.log(payload)
     state.messages = state.messages.filter(message => {
       if (message.id !== payload.id) {
         return {
